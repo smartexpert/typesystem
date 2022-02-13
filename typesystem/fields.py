@@ -73,7 +73,7 @@ class Field:
         return default
 
     def validation_error(self, code: str) -> ValidationError:
-        text = self.get_error_text(code)
+        text = self.error_message[code] if hasattr(self,"error_message") and type(self.error_message) == dict and code in self.error_message else self.get_error_text(code)
         return ValidationError(text=text, code=code)
 
     def get_error_text(self, code: str) -> str:
