@@ -31,6 +31,7 @@ class Field:
         default: typing.Any = NO_DEFAULT,
         allow_null: bool = False,
         read_only: bool = False,
+        **kwargs: typing.Any,
     ):
         assert isinstance(title, str)
         assert isinstance(description, str)
@@ -45,6 +46,9 @@ class Field:
         self.description = description
         self.allow_null = allow_null
         self.read_only = read_only
+        if kwargs:
+            for key, value in kwargs.items():
+                setattr(self,key,value)  
 
     def validate(self, value: typing.Any) -> typing.Any:
         raise NotImplementedError()  # pragma: no cover
