@@ -68,8 +68,9 @@ class Form:
                 continue
             value = None if values is None else values.get(field_name)
             error = None if errors is None else errors.get(field_name)
+            placeholder = field.placeholder if hasattr(field,'placeholder') else None
             html += self.render_field(
-                field_name=field_name, field=field, value=value, error=error
+                field_name=field_name, field=field, value=value, error=error, placeholder=placeholder
             )
         return html
 
@@ -80,6 +81,7 @@ class Form:
         field: Field,
         value: typing.Any = None,
         error: str = None,
+        placeholder: str = None
     ) -> str:
         field_id = field_name.replace("_", "-")
         label = field.title or field_name
@@ -99,6 +101,7 @@ class Form:
                 "input_type": input_type,
                 "value": value,
                 "error": error,
+                "placeholder": placeholder
             }
         )
 
